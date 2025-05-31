@@ -1,0 +1,36 @@
+from collections import deque
+
+
+n, t = tuple(map(int, input().split()))
+
+
+cola = deque()
+
+for i in range(n):
+    id, boletos = tuple(map(int, input().split()))
+    dato = (id, boletos)
+    cola.append(dato)
+
+cantidad_personas = 0
+
+while t > 0:
+    aux = None
+    if len(cola) == 0:
+        print("quedaron boletas disponibles")
+        break
+
+    elif cantidad_personas == 4:
+        t -= cola[0][1]
+        cola.popleft()
+        cantidad_personas = 0
+
+    elif cola[0][1] < t:
+        t -= cola[0][1]
+        aux = cola.popleft()
+        cola.append(aux)
+        cantidad_personas += 1
+    
+    else:
+        print(f"{cola[0][0]} {t}")
+        break
+    
